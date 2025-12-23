@@ -1,7 +1,5 @@
-/* === Import Font (Google Fonts) === */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
-/* === Variabel Global === */
 :root {
     --primary-color: #0066cc;
     --primary-dark: #004c99;
@@ -24,7 +22,6 @@
     --shadow-xl: 0 20px 60px rgba(0,0,0,0.15);
 }
 
-/* === Reset & Setup Dasar === */
 * {
     margin: 0;
     padding: 0;
@@ -103,7 +100,6 @@ img {
     height: auto;
 }
 
-/* === Utility Classes (Tombol) === */
 .btn {
     display: inline-block;
     padding: 0.875rem 2rem;
@@ -158,7 +154,6 @@ img {
     box-shadow: 0 8px 25px rgba(0, 102, 204, 0.25);
 }
 
-/* === Header & Navbar === */
 header {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
@@ -233,7 +228,6 @@ header {
     width: 100%;
 }
 
-/* === Main Content Padding === */
 main {
     padding-top: 0;
 }
@@ -242,7 +236,6 @@ section {
     padding: 5rem 2rem;
 }
 
-/* === Hero Section === */
 .hero {
     background: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 50%, #fef3c7 100%);
     padding: 6rem 2rem;
@@ -295,7 +288,6 @@ section {
     font-weight: 400;
 }
 
-/* === How It Works Section === */
 .how-it-works {
     background-color: var(--background-light);
 }
@@ -371,7 +363,6 @@ section {
     color: var(--text-medium);
 }
 
-/* === Features Section === */
 .features {
     background: linear-gradient(135deg, #f0f9ff 0%, #f8fafc 100%);
 }
@@ -419,7 +410,6 @@ section {
     margin-top: 1.5rem;
 }
 
-/* === Footer === */
 footer {
     background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
     color: #e2e8f0;
@@ -436,8 +426,6 @@ footer {
     font-weight: 500;
 }
 
-/* === SCAN PAGE STYLES === */
-
 .scanner-container,
 .results-container {
     max-width: 900px;
@@ -445,7 +433,6 @@ footer {
     text-align: center;
 }
 
-/* === Disclaimer Box === */
 .disclaimer-box {
     background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
     border-left: 5px solid #f59e0b;
@@ -462,7 +449,6 @@ footer {
     font-weight: 700;
 }
 
-/* === Upload Area === */
 .upload-area {
     border: 3px dashed var(--border-light);
     border-radius: 16px;
@@ -509,7 +495,6 @@ footer {
     color: var(--text-light);
 }
 
-/* === Preview Area === */
 .preview-area {
     margin-top: 2.5rem;
     margin-bottom: 2rem;
@@ -530,7 +515,6 @@ footer {
     margin-top: 1.5rem;
 }
 
-/* === Scan Button === */
 #scan-btn:disabled {
     background: #cbd5e1;
     cursor: not-allowed;
@@ -543,13 +527,11 @@ footer {
     transform: none;
 }
 
-/* === Results Section === */
 .results-section {
     background: linear-gradient(135deg, #f8fafc 0%, #f0f9ff 100%);
     padding: 5rem 2rem;
 }
 
-/* === Loading Spinner === */
 .spinner-container {
     padding: 3rem;
 }
@@ -576,7 +558,6 @@ footer {
     }
 }
 
-/* === Result Content === */
 #result-finding {
     font-size: 2.5rem;
     margin-bottom: 0.75rem;
@@ -591,9 +572,8 @@ footer {
     color: var(--medical-green);
 }
 
-/* --- TAMBAHAN BARU: Status Indeterminate --- */
 .result-warning {
-    color: #d97706; /* Warna Oranye/Amber */
+    color: #d97706;
 }
 
 #result-score {
@@ -615,7 +595,6 @@ footer {
     border: 1px solid var(--border-light);
 }
 
-/* === Evidence Container === */
 .evidence-container {
     margin-top: 4rem;
     border-top: 2px solid var(--border-light);
@@ -673,7 +652,6 @@ footer {
     box-shadow: var(--shadow-xl);
 }
 
-/* === EDUCATION PAGE & ABOUT PAGE, ETC (Sama seperti sebelumnya) === */
 .education-section, .about-section {
     background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
 }
