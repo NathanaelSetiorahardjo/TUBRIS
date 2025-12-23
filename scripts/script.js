@@ -1,19 +1,14 @@
-// Menunggu sampai semua konten HTML dimuat
 document.addEventListener("DOMContentLoaded", function() {
     
-    // --- 1. Jalankan Inisialisasi Navigasi ---
     initActiveNav();
 
-    // --- 2. Jalankan Inisialisasi Halaman Scan ---
     if (document.getElementById('xray-input')) {
         initScanPage();
     }
 });
 
 
-/**
- * Fungsi untuk memberi kelas 'active' pada link navbar yang sesuai.
- */
+
 function initActiveNav() {
     const navLinks = document.querySelectorAll('.nav-link');
     const currentPage = window.location.pathname.split('/').pop();
@@ -28,11 +23,7 @@ function initActiveNav() {
 }
 
 
-/**
- * Fungsi untuk semua logika di halaman skrining (scan.html).
- */
 function initScanPage() {
-    // --- 2a. Ambil semua elemen UI ---
     const xrayInput = document.getElementById('xray-input');
     const uploadLabel = document.querySelector('.upload-label'); 
     const previewContainer = document.getElementById('preview-container');
@@ -52,7 +43,6 @@ function initScanPage() {
 
     let selectedFile = null;
 
-    // --- 2b. Event listener untuk KLIK (pilih file) ---
     xrayInput.addEventListener('change', function() {
         const file = this.files[0];
         if (file) {
@@ -60,9 +50,7 @@ function initScanPage() {
         }
     });
 
-    // --- 2c. Event listener untuk DRAG & DROP --- 
     if (uploadLabel) {
-        // Mencegah browser membuka file saat di-drag
         uploadLabel.addEventListener('dragover', function(event) {
             event.preventDefault();
             uploadLabel.classList.add('dragging'); 
@@ -77,7 +65,7 @@ function initScanPage() {
             uploadLabel.classList.remove('dragging');
 
             const file = event.dataTransfer.files[0];
-            xrayInput.files = event.dataTransfer.files; // Sync input
+            xrayInput.files = event.dataTransfer.files;
 
             if (file) {
                 handleFile(file);
@@ -85,11 +73,9 @@ function initScanPage() {
         });
     }
 
-    // --- 2d. Fungsi helper untuk memproses file ---
     function handleFile(file) {
         selectedFile = file; 
             
-        // Validasi tipe file sederhana (optional)
         if (!file.type.match('image.*')) {
             alert("Mohon unggah file gambar (.jpg, .png)");
             return;
@@ -102,19 +88,16 @@ function initScanPage() {
         }
         reader.readAsDataURL(file);
         
-        // Aktifkan tombol scan
         scanButton.disabled = false;
     }
 
 
-    // --- 2e. Event listener saat tombol "Analisis Gambar" diklik ---
     scanButton.addEventListener('click', async function() {
         if (!selectedFile) {
             alert('Tolong pilih file gambar terlebih dahulu.');
             return;
         }
 
-        // Tampilkan loading & scroll
         resultsSection.style.display = 'block';
         loadingSpinner.style.display = 'block';
         resultContent.style.display = 'none';
@@ -124,7 +107,6 @@ function initScanPage() {
         const formData = new FormData();
         formData.append('file', selectedFile);
 
-        // --- KONFIGURASI API ---
         const API_URL = 'https://huggingface.co/spaces/Blaziooon/TUBRIS/predict'; 
         
         try {
@@ -146,15 +128,14 @@ function initScanPage() {
             resultContent.style.display = 'block';
             
             resultFinding.textContent = 'Gagal Terhubung';
-            // Reset style
+            
             resultFinding.className = ''; 
-            resultFinding.style.color = '#dc2626'; // Merah
+            resultFinding.style.color = '#dc2626'; 
             
             resultScore.textContent = 'Pastikan backend (app.py) sudah berjalan dan URL benar.';
         }
     });
 
-    // --- 2f. Fungsi untuk Menampilkan Hasil (LOGIKA ENSEMBLE) ---
     function displayResults(data) {
         loadingSpinner.style.display = 'none';
         resultContent.style.display = 'block';
@@ -162,31 +143,24 @@ function initScanPage() {
         resultFinding.textContent = data.hasil;
         resultScore.textContent = `Tingkat Keyakinan: ${data.confidence}`;
 
-        // Reset semua kelas warna
         resultFinding.classList.remove('result-positive', 'result-negative', 'result-warning');
         
         const hasilLower = data.hasil.toLowerCase();
 
-        // 1. Logika Warna
         if (hasilLower === 'tuberculosis') {
-            resultFinding.classList.add('result-positive'); // Merah
+            resultFinding.classList.add('result-positive');
         } else if (hasilLower === 'normal') {
-            resultFinding.classList.add('result-negative'); // Hijau
+            resultFinding.classList.add('result-negative'); 
         } else {
-            // Indeterminate / Ragu-ragu
-            resultFinding.classList.add('result-warning'); // Kuning/Oranye
-            // Pesan tambahan jika indeterminate
+            resultFinding.classList.add('result-warning');
             resultScore.innerHTML = `Tingkat Keyakinan: ${data.confidence}<br><span style="font-size:0.9rem; color:#666;">(Zona Ragu-ragu. Disarankan cek manual.)</span>`;
         }
 
-        // 2. Logika Heatmap (Hanya tampilkan jika backend mengirim data)
-        // Backend ensemble kita saat ini return heatmap_base64: None
         if (data.heatmap_base64) {
             heatmapImageResult.src = 'data:image/jpeg;base64,' + data.heatmap_base64;
             originalImageResult.src = imagePreview.src;
             heatmapContainer.style.display = 'block';
         } else {
-            // Sembunyikan kontainer jika tidak ada heatmap
             heatmapContainer.style.display = 'none';
         }
     }
